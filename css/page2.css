@@ -1,0 +1,56 @@
+body {
+    font-family: 'Verdana', sans-serif; /* Inna czcionka */
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff; /* Jaśniejszy kolor tła */
+}
+
+header {
+    background-color: #4b0082; /* Kolor fioletowy */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.kawiarnia-zdjecie {
+    max-width: 100%; /* Umożliwia responsywność */
+    height: auto; /* Zachowuje proporcje */
+    display: block; /* Ustawia zdjęcie jako blok */
+    margin: 20px auto; /* Wyśrodkowanie zdjęcia */
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+h2 {
+    margin: 10px 0;
+    font-size: 1.5em;
+}
+
+main {
+    padding: 20px;
+}
+
+h3 {
+    color: #4b0082; /* Kolor fioletowy */
+}
+
+p {
+    line-height: 1.6;
+    font-size: 16px; /* Inny rozmiar czcionki */
+}
+
+ul {
+    list-style-type: square; /* Inny typ wypunktowania */
+    margin-left: 20px;
+}
+
+footer {
+    background-color: #4b0082; /* Kolor fioletowy */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
