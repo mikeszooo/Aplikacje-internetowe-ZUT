@@ -47,6 +47,40 @@ button
     border: none;
 
 }
+.delete-btn
+{
+    margin-left: 20px;
+    width: 30px;
+    background: red;
+    transition: background-color 0.3s ease;
+}
+.delete-btn:hover
+{
+    background-color: darkred;
+}
+#task-list {
+    list-style-type: none;  /* Usunięcie domyślnych kropek przy elementach listy */
+    padding: 0;             /* Usunięcie domyślnych odstępów wewnętrznych */
+    margin: 0;              /* Usunięcie domyślnych marginesów */
+}
+
+/* Stylizacja pojedynczego elementu listy (li) */
+.task-item {
+    display: flex;              /* Ustawienie flexboxa dla lepszego rozmieszczenia elementów */
+    justify-content: space-between;  /* Rozstawienie elementów na szerokość */
+    align-items: center;         /* Wyrównanie elementów w pionie */
+    padding: 10px 15px;          /* Odstępy wewnętrzne */
+    margin: 5px 0;               /* Odstępy między elementami listy */
+    background-color: #4f4f46;   /* Jasnoszare tło */
+    border-radius: 8px;          /* Zaokrąglenie rogów */
+    border: 1px solid #ddd;      /* Cienka obwódka */
+    transition: background-color 0.3s ease;  /* Płynna zmiana tła */
+}
+
+.task-date
+{
+
+}
 
 .ramka
 {
