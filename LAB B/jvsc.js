@@ -5,10 +5,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskDeadlineInput = document.getElementById('task-deadline');
     const searchInput = document.getElementById('search');
 
-    // Załaduj zadania z Local Storage przy starcie strony
+    // Load tasks from Local Storage on page load
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    // Funkcja do renderowania listy zadań
+    // Helper function to format the date to "dd-MM-yyyy HH:mm"
+    function formatDate(dateString) {
+        if (!dateString) return 'Brak terminu';
+        const date = new Date(dateString);
+        const options = {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+        };
+        return date.toLocaleDateString('pl-PL', options).replace(',', ' ');
+    }
+
+    // Function to render task list
     function renderTasks(filteredTasks = tasks) {
         taskList.innerHTML = '';
         filteredTasks.forEach((task, index) => {
@@ -16,15 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
             taskItem.classList.add('task-item');
 
             const taskText = document.createElement('span');
-            taskText.innerHTML = highlightSearchTerm(task.text, searchInput.value); // Wyróżnienie wyszukiwanego terminu
+            taskText.innerHTML = highlightSearchTerm(task.text, searchInput.value); // Highlight search term
             taskItem.appendChild(taskText);
 
             const taskDate = document.createElement('span');
             taskDate.classList.add('task-date');
-            taskDate.textContent = task.deadline || 'Brak terminu';
+            taskDate.textContent = formatDate(task.deadline);
             taskItem.appendChild(taskDate);
 
-            // Przycisk usuwania
+            // Add delete button
             const deleteBtn = document.createElement('button');
             deleteBtn.textContent = '🗑';
             deleteBtn.classList.add('delete-btn');
@@ -35,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             taskItem.appendChild(deleteBtn);
 
-            // Kliknięcie w pozycję na liście do edycji
+            // Task name edit functionality
             taskText.addEventListener('click', () => {
                 const editInput = document.createElement('input');
                 editInput.type = 'text';
@@ -43,11 +58,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 taskItem.replaceChild(editInput, taskText);
                 editInput.focus();
 
-                // Zapisanie zmian po kliknięciu poza pole edycji
+                // Save changes on blur or Enter key
                 editInput.addEventListener('blur', () => {
                     task.text = editInput.value;
                     saveTasks();
                     renderTasks();
+                });
+                editInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        task.text = editInput.value;
+                        saveTasks();
+                        renderTasks();
+                    }
+                });
+            });
+
+            // Task date edit functionality
+            taskDate.addEventListener('click', () => {
+                const dateInput = document.createElement('input');
+                dateInput.type = 'datetime-local';
+                dateInput.value = task.deadline || '';  // Set current date if available
+                taskItem.replaceChild(dateInput, taskDate);
+                dateInput.focus();
+
+                // Save changes on blur or Enter key
+                dateInput.addEventListener('blur', () => {
+                    const newDate = dateInput.value;
+                    if (!newDate || new Date(newDate) >= new Date()) { // Validate date
+                        task.deadline = newDate || 'Brak terminu';
+                        saveTasks();
+                        renderTasks();
+                    } else {
+                        alert('Data musi być w przyszłości.');
+                        renderTasks();
+                    }
+                });
+                dateInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const newDate = dateInput.value;
+                        if (!newDate || new Date(newDate) >= new Date()) { // Validate date
+                            task.deadline = newDate || 'Brak terminu';
+                            saveTasks();
+                            renderTasks();
+                        } else {
+                            alert('Data musi być w przyszłości.');
+                            renderTasks();
+                        }
+                    }
                 });
             });
 
@@ -55,39 +112,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Funkcja do zapisu zadań do Local Storage
+    // Function to save tasks to Local Storage
     function saveTasks() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
-    // Dodanie nowego zadania
+    // Add new task
     addTaskBtn.addEventListener('click', () => {
         const taskText = newTaskInput.value.trim();
         const taskDeadline = taskDeadlineInput.value;
 
-        // Walidacja tekstu zadania
+        // Validate task text
         if (taskText.length < 3 || taskText.length > 255) {
             alert('Zadanie musi mieć co najmniej 3 znaki i nie więcej niż 255 znaków.');
             return;
         }
 
-        // Walidacja terminu zadania
+        // Validate task deadline
         if (taskDeadline && new Date(taskDeadline) < new Date()) {
             alert('Data musi być w przyszłości.');
             return;
         }
 
-        // Dodajemy zadanie do listy
+        // Add task to the list
         tasks.push({ text: taskText, deadline: taskDeadline });
         saveTasks();
         renderTasks();
 
-        // Wyczyszczenie pól
+        // Clear input fields
         newTaskInput.value = '';
         taskDeadlineInput.value = '';
     });
 
-    // Wyszukiwanie
+    // Search functionality
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         if (searchTerm.length >= 2) {
@@ -98,13 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Funkcja wyróżniania wyszukiwanego terminu
+    // Function to highlight search term
     function highlightSearchTerm(text, term) {
-        if (!term) return text;
+        if (!term || term.length < 2) return text; // Only highlight if term is 2+ characters
         const regex = new RegExp(`(${term})`, 'gi');
         return text.replace(regex, '<mark>$1</mark>');
     }
 
-    // Załaduj i wyświetl zadania przy starcie
+    // Load and display tasks on page load
     renderTasks();
 });

@@ -75,10 +75,14 @@ button
     border-radius: 8px;          /* Zaokrąglenie rogów */
     border: 1px solid #ddd;      /* Cienka obwódka */
     transition: background-color 0.3s ease;  /* Płynna zmiana tła */
+    font-weight: bold;
+    color: white;
 }
 
 .task-date
 {
+    margin-left: auto;
+    font-weight: bold;
 
 }
 
