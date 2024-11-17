@@ -2,72 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Geolocation and Leaflet Map</title>
+    <title>Geolocation and Puzzle Game</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="leaflet-1.7.1/leaflet-1.7.1/leaflet.css" />
     <script src="leaflet-1.7.1/leaflet-1.7.1/leaflet-src.js"></script>
     <script src="leaflet-1.7.1/leaflet-1.7.1/leaflet-providers.js"></script>
     <script src="leaflet-1.7.1/leaflet-1.7.1/leaflet-image.js"></script>
-
-    <style>
-        #map {
-            width: 600px;
-            height: 300px;
-            border: 1px solid black;
-            margin-bottom: 10px;
-        }
-
-        #rasterMap {
-            width: 300px;
-            height: 150px;
-            border: 1px solid black;
-        }
-    </style>
 </head>
 <body>
-<button id="getLocation">Get Current Location</button>
-<button id="saveButton">Save Static Map</button>
+<div id="controls">
+    <button id="getLocation">Get Current Location</button>
+    <button id="saveButton">Save Static Map</button>
+</div>
 <div id="map"></div>
-<canvas id="rasterMap"></canvas>
+<img id="staticImage" src="" alt="Static Map Preview">
+<canvas id="rasterMap" width="320" height="320"></canvas>
 
-<script>
-    let map = L.map('map').setView([53.430127, 14.564802], 18);
-    L.tileLayer.provider('Esri.WorldImagery').addTo(map);
+<div id="puzzleArea">
+    <div id="randomPuzzle" class="puzzle-container"></div>
+    <div id="puzzleBoard" class="puzzle-container"></div>
+</div>
 
-    let marker = L.marker([53.430127, 14.564802]).addTo(map);
-    marker.bindPopup("<strong>Hello!</strong><br>This is a popup.");
-
-    document.getElementById("getLocation").addEventListener("click", function() {
-        if (!navigator.geolocation) {
-            alert("Geolocation is not supported by your browser.");
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(position => {
-            let lat = position.coords.latitude;
-            let lon = position.coords.longitude;
-
-            map.setView([lat, lon], 18);
-            marker.setLatLng([lat, lon]);
-            marker.bindPopup(`<strong>Your Location:</strong><br>Lat: ${lat}, Lon: ${lon}`).openPopup();
-        }, error => {
-            console.error("Geolocation error:", error);
-            alert("Unable to retrieve your location. Please check your browser settings and permissions.");
-        });
-    });
-
-    document.getElementById("saveButton").addEventListener("click", function() {
-        leafletImage(map, function(err, canvas) {
-            if (err) {
-                console.error("Error creating static map:", err);
-                return;
-            }
-
-            let rasterMap = document.getElementById("rasterMap");
-            let rasterContext = rasterMap.getContext("2d");
-            rasterContext.clearRect(0, 0, rasterMap.width, rasterMap.height);
-            rasterContext.drawImage(canvas, 0, 0, rasterMap.width, rasterMap.height);
-        });
-    });
-</script>
+<script src="jvasc.js"></script>
 </body>
 </html>
