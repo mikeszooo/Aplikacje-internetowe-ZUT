@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c72dc7a-cb3c-4f51-9701-bc974a2b4382" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../LABC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LABC/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +25,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2plOXrime3FeUVT7a9FnGchIigC" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -36,8 +36,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "lab-e",
-    "last_opened_file_path": "D:/ZUT/APlikacje internetowe/Aplikacje-internetowe-ZUT/LAB E",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/ZUT/APlikacje internetowe/Aplikacje-internetowe-ZUT/LAB E/e",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -65,6 +65,8 @@
       <option name="presentableId" value="Default" />
       <updated>1733337238095</updated>
       <workItem from="1733337239162" duration="3911000" />
+      <workItem from="1733341308125" duration="986000" />
+      <workItem from="1733342503299" duration="68000" />
     </task>
     <servers />
   </component>
